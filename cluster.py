@@ -1,26 +1,37 @@
-__author__ = 'vdziubak'
+from copy import deepcopy
+from numpy import array
 
-import re
-
-def vectorize(raw_data):
-    data = []
-
-    for row in raw_data:
-        text = ' '.join([row[0], row[1]])
-        text = re.sub('http[s]?://(\S+)|[#@](\S+)', '', text)  # remove urls, hashtags, user mentions
-        data.append(text)
-
-    return data
 
 class Cluster:
-    def __init__(self, vector):
-        self.centroid = vector
-        self.vectors = [vector]
+    def __init__(self):
+        self._dim = None
+        self._vectors = []
+        self._centroid = []
+
+    @property
+    def dim(self):
+        return self._dim
+    @dim.setter
+    def dim(self, value):
+        self._dim = value
+
+    @property
+    def centroid(self):
+        return self._centroid
+
+    @property
+    def vectors(self):
+        return self._vectors
 
     def add(self, vector):
-        self.vectors.append(vector)
-        self.recalculateCentriod()
+        if not self.dim:
+            self.dim = len(vector)
+        elif len(vector) != self.dim:
+            raise ValueError("trying to add vectors with wrong dimension")
 
-    def 
+        self.dim = len(vector)
+        self.vectors.append(deepcopy(vector))
+        self._update_centroid()
 
-def cluster(vector):
+    def _update_centroid(self):
+        self._centroid = [col.mean() for col in array(self.vectors).T]
