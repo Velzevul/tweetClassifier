@@ -11,8 +11,12 @@ def vectorize(raw_data):
     data = []
 
     for row in raw_data:
-        text = ' '.join([row[0], row[1]])
-        text = re.sub('http[s]?://(\S+)|[#@](\S+)', '', text)  # remove urls, hashtags, user mentions
+        # text = ' '.join([row[0], row[1]])
+        text = row[1]
+        if len(text.split(' ')) < 3:
+            text = "#### " + row[0]
+        # text = re.sub('http[s]?://(\S+)', '', text)  # remove urls
+        # text = re.sub('i\s+liked\s+a\s+(video(\s+from)?|playlist)\s+|I\s+added\s+a\s+video\s+to\s+a\s+playlist\s+', '', text, flags=re.IGNORECASE)
         data.append(text)
 
     return data
