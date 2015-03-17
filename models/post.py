@@ -5,9 +5,10 @@ class Post(db.Model):
     __tablename__ = 'posts'
 
     id = db.Column(db.Integer, primary_key=True)
-    original_url = db.Column(db.String(255), unique=True)
-    url = db.Column(db.String(255))
+    twitter_url = db.Column(db.String(255), unique=True)
+    url = db.Column(db.Text)
     title = db.Column(db.String(255))
+    error_description = db.Column(db.String(255))
 
     def __repr__(self):
-        return '<Post %s: %s >' % (self.id, self.original_url)
+        return '<Post %s: %s >' % (self.id, self.twitter_url)
