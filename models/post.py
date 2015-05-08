@@ -2,7 +2,7 @@ from models import db, posts_tweets
 
 
 class Post(db.Model):
-    __tablename__ = 'posts'
+    __tablename__ = 'links'
 
     id = db.Column(db.Integer, primary_key=True)
     twitter_url = db.Column(db.String(255), unique=True)
